@@ -25,3 +25,6 @@ Idea: uses for opene finder page for select a parameter's, this can share pareme
 </ol>
 </li>
 </ol>
+
+<p>The HskFrame is a java project for lib the hsk:panelFrame and has all configuration and class for use-alone</p>
+<p>The HskTest  is a java-web project for test the hsk-jsf-frame_1.5.jar in a simple test, when we need get 2 parameters (session, flash scope) from the popupX.xhtml pages to parent page (main is index.xhtml)</p>
