@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.0"
+              xmlns="http://java.sun.com/xml/ns/javaee" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    <application>
+        <navigation-handler>hsk.faces.application.CustomNavegationImpl</navigation-handler>
+    </application>
+    <factory>
+        <partial-view-context-factory>hsk.faces.context.PartialViewRefreshContextFactory</partial-view-context-factory>
+    </factory>
+    <component>
+        <component-type>hsk.faces.UIPanelFrame</component-type>
+        <component-class>hsk.faces.component.UIPanelFrame</component-class>
+    </component>
+
+    <component>
+        <component-type>hsk.faces.UIPanelRefresh</component-type>
+        <component-class>hsk.faces.component.UIPanelRefresh</component-class>
+    </component>
+
+    <render-kit>
+        <renderer>
+            <component-family>hsk.faces.NamingContainer</component-family>
+            <renderer-type>hsk.faces.Composite</renderer-type>
+            <renderer-class>hsk.faces.renderkit.html_basic.PanelRefresh</renderer-class>
+        </renderer>
+        <renderer>
+            <component-family>hsk.faces.NamingContainer</component-family>
+            <renderer-type>hsk.faces.CompositeFrame</renderer-type>
+            <renderer-class>hsk.faces.renderkit.html_basic.PanelFrame</renderer-class>
+        </renderer>
+        <!--
+        <renderer>
+            <component-family>javax.faces.NamingContainer</component-family>
+            <renderer-type>hsk.faces.PanelFrame</renderer-type>
+            <renderer-class>hsk.faces.renderkit.html_basic.PanelFrame</renderer-class>
+        </renderer>
+        -->
+        <!--
+        <renderer>
+            <component-family>javax.faces.Panel</component-family>
+            <renderer-type>hsk.faces.PanelMessages</renderer-type>
+            <renderer-class>hsk.faces.renderkit.html_basic.PanelMessages</renderer-class>
+        </renderer>
+        -->
+    </render-kit>
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>popup</from-outcome>
+            <to-view-id>/popup.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/popup.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

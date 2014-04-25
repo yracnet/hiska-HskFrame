@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <cc:interface componentType="hsk.faces.UIPanelFrame">
+        <cc:attribute name="name" default="#{cc.id}"/>
+        <cc:attribute name="scopeMap" default="#{viewScope}"/>
+        <cc:attribute name="inner" default="true"/>
+    </cc:interface>
+    <cc:implementation>
+        <f:facet name="_close">
+            <script>
+                function execute_#{cc.id}() {
+                    var hasParent = (window !== window.parent);
+                    var frameElement = document.getElementById('#{cc.clientFrameId}')
+                    var parentViewId = hasParent ? window.parent.currentViewId() : null;
+                    if (hasParent === true &amp;&amp; parentViewId === '#{cc.toViewId}') {
+                        window.parent.ajaxEvent();
+                    } else if (frameElement !== null) {
+                        frameElement.src = '#{cc.url}';
+                    }
+                }
+                try {
+                    execute_#{cc.id}();
+                } catch (e) {
+                    alert(e);
+                }
+            </script>
+        </f:facet>
+        <f:facet name="_none">
+        </f:facet>
+        <f:facet name="_open">
+            <b>WINDOW</b>
+            <iframe id="#{cc.clientFrameId}" name="#{cc.clientFrameId}"/>
+            <script>
+                var currentViewId = function() {
+                    return '#{view.viewId}';
+                }
+                var ajaxEvent = function() {
+                    mojarra.ab('#{cc.eventId}', {type: 'click'}, 'click', 0, '#{cc.renderIds}', {});
+                    return false;
+                };
+                var execute_#{cc.id} = function () {
+                    var hasParent = (window !== window.parent);
+                    var frameElement = document.getElementById('#{cc.clientFrameId}')
+                    var parentViewId = hasParent ? window.parent.currentViewId() : null;
+                    if (hasParent === true &amp;&amp; parentViewId === '#{cc.toViewId}') {
+                        window.parent.ajaxEvent();
+                    } else if (frameElement !== null) {
+                        frameElement.src = '#{cc.url}?iframe=true';
+                    }
+                }
+                try {
+                    execute_#{cc.id}();
+                } catch (e) {
+                    alert(e);
+                }
+            </script>
+        </f:facet>
+    </cc:implementation>
+</html>
